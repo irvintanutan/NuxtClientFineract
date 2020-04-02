@@ -1,15 +1,15 @@
 <template>
   <header class="header">
-    <h1 class="title">Member Page </h1>
+    <h1 class="title">Member Page</h1>
     <ul>
       <li>
-        <nuxt-link to="/">Home</nuxt-link>
+        <b-button tag="nuxt-link" to="/" type="is-primary">Home</b-button>
       </li>
       <li>
-        <nuxt-link to="/jokes">Member</nuxt-link>
+        <b-button tag="nuxt-link" to="/jokes" type="is-primary">Member</b-button>
       </li>
       <li>
-        <nuxt-link to="/about">About</nuxt-link>
+        <b-button tag="nuxt-link" to="/about" type="is-primary">About</b-button>
       </li>
     </ul>
   </header>
