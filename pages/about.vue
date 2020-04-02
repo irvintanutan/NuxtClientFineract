@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1>About DadJokes</h1>
-        <p>This is an app that displays corny dad jokes</p>
+        <h1>About Page</h1>
+        <p>This is a simple Proof of concept utilizing FINERACT backend with NUXT JS</p>
     </div>
 </template>
 

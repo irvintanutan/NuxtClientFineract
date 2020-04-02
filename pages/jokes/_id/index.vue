@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link to="/jokes"> Back To Jokes </nuxt-link>
+    <nuxt-link to="/jokes"> Back To Member </nuxt-link>
     <h2>{{ joke }}</h2>
     <hr />
     <small> Joke ID: {{ $route.params.id }} </small>
@@ -23,11 +23,19 @@ export default {
       }
     }
 
+    const config2 = {
+      headers: {
+        'Fineract-Platform-TenantId': 'default',
+        'Access-Control-Allow-Origin': 'true'
+      }
+    }
+
     try {
       const rest = await axios.get(
         `https://icanhazdadjoke.com/j/${this.$route.params.id}`,
         config
       )
+
       this.joke = rest.data.joke
       console.log(this.joke)
     } catch (err) {

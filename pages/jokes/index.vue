@@ -36,6 +36,18 @@ export default {
     try {
       const rest = await axios.get('https://icanhazdadjoke.com/search', config)
       this.jokes = rest.data.results
+
+      axios.defaults.headers.common = {
+        'Fineract-Platform-TenantId': 'default',
+        'Access-Control-Allow-Origin': '*'
+      }
+      const fineract = await axios({
+        url:
+          'https://ec2-13-229-72-14.ap-southeast-1.compute.amazonaws.com/fineract-provider/api/v1/clients',
+        method: 'GET',
+        crossDomain: true
+      })
+      console.log(fineract.data)
     } catch (err) {
       console.log(err)
     }
@@ -61,7 +73,7 @@ export default {
   },
   head() {
     return {
-      title: 'Dad Jokes',
+      title: 'Member List',
       meta: [
         {
           hid: 'description',

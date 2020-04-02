@@ -1,14 +1,15 @@
 <template>
   <form @submit.prevent="OnSubmit">
-    <input type="text" v-model="text" placeholder="Search Jokes..." />
-    <input type="submit" value="Search Jokes" />
+    <input type="text" v-model="text" placeholder="Search Member..." />
+    <input type="submit" value="Search Member" />
   </form>
+ 
+
 </template>
 
 <script>
 export default {
-  name: 'SearchJokes',
-
+  name: 'SearchJokes', 
   data() {
     return {
       text: ''

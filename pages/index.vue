@@ -1,25 +1,22 @@
 <template>
   <div>
-    <h2>
-      Welcome to the best corny dad jokes app on the web
-    </h2>
+    <h2>Fineract NUXT Member Module</h2>
   </div>
 </template>
 
-<script> 
-export default { 
-head(){
-    return{
-        title: 'Welcome to dad jokes',
-        meta:[
-            {
-                hid: 'description',
-                name: 'description',
-                content: 'best place for corny dad jokes'
-            }
-        ]
-    };
+<script>
+export default {
+  head() {
+    return {
+      title: 'Member Module',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'member module'
+        }
+      ]
+    }
   }
 }
 </script>
- 
