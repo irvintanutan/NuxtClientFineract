@@ -41,15 +41,7 @@ export default {
     '@nuxtjs/proxy',
     'nuxt-buefy'
   ],
-  proxy: {
-    '/api': {
-      target:
-        'https://ec2-13-229-72-14.ap-southeast-1.compute.amazonaws.com/fineract-provider/',
-      pathRewrite: {
-        '^/api/v1': '/'
-      }
-    }
-  },
+
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
