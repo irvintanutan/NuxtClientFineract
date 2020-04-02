@@ -38,7 +38,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    'nuxt-buefy'
   ],
   proxy: {
     '/api': {
