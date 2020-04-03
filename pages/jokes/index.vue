@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Joke from '../../components/Joke'
 import SearchJokes from '../../components/SearchJokes'
+import https from 'https'
 
 export default {
   components: {
@@ -84,7 +84,7 @@ export default {
       ]
     }
   },
-  async created() {
+  created() {
     const config = {
       headers: {
         Accept: 'application/json'
@@ -92,20 +92,49 @@ export default {
     }
 
     try {
-      const rest = await axios.get('https://icanhazdadjoke.com/search', config)
-      this.jokes = rest.data.results
-
-      axios.defaults.headers.common = {
-        'Fineract-Platform-TenantId': 'default',
-        'Access-Control-Allow-Origin': '*'
-      }
-      const fineract = await axios({
-        url:
-          'https://ec2-13-229-72-14.ap-southeast-1.compute.amazonaws.com/fineract-provider/api/v1/clients',
-        method: 'GET',
-        crossDomain: true
-      })
-      console.log(fineract.data)
+      // const rest = await this.$axios.get('https://icanhazdadjoke.com/search', config)
+      // this.jokes = rest.data.results
+      const agent = new https.Agent({  
+        rejectUnauthorized: false
+      });
+      
+    const fineract = new Promise((resolve, reject) => {
+      const agent = new https.Agent({  
+        rejectUnauthorized: false
+      });
+      const token = this.$store.state.token
+        console.log(`members ${token}`)
+        this.$axios.defaults.headers.common = {
+          'Fineract-Platform-TenantId': 'default',
+          'Access-Control-Allow-Origin': '*',
+          "Content-Type": "application/json",
+          'Authorization': `Basic ${token}`
+        }
+        this.$axios({
+          url: 'clients',
+          method: 'GET',
+          data: {
+            "name": "Davao",
+            "dateFormat": "dd MMMM yyyy",
+            "locale": "en",
+            "openingDate": "01 July 2007",
+            "parentId": 2,
+            "externalId": "SYS54-88"
+          },
+          config: {
+            httpsAgent: agent
+          },
+          crossDomain: true
+        })
+        .then(resp => {
+          console.log(resp.data)
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err)
+        });
+    });
+      // console.log(fineract)
     } catch (err) {
       console.log(err)
     }
@@ -119,7 +148,7 @@ export default {
       }
 
       try {
-        const rest = await axios.get(
+        const rest = await this.$axios.get(
           `https://icanhazdadjoke.com/search?term=${text}`,
           config
         )

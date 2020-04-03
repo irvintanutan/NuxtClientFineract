@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import https from 'https'
 export default {
   head() {
     return {
@@ -17,6 +18,37 @@ export default {
         }
       ]
     }
+  },
+  created() {
+    const login = new Promise((resolve, reject) => {
+      const agent = new https.Agent({  
+        rejectUnauthorized: false
+      });
+      this.$axios.defaults.headers.common = {
+        'Fineract-Platform-TenantId': 'default',
+        'Access-Control-Allow-Origin': '*',
+        "Content-Type": "application/json"
+      }
+      this.$axios({
+        url: 'authentication?username=mifos&password=password',
+        data: {},
+        method: "POST",
+        config: {
+          httpsAgent: agent
+        },
+        crossDomain: true
+      })
+        .then(resp => {
+          const token = resp.data.base64EncodedAuthenticationKey;
+          console.log(token)
+          this.$store.state.token = token
+          console.log(this.$store.state.token)
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err)
+        });
+    });
   }
 }
 </script>

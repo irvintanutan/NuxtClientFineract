@@ -41,12 +41,24 @@ export default {
     '@nuxtjs/proxy',
     'nuxt-buefy'
   ],
-
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL:
+      'https://ec2-13-229-72-14.ap-southeast-1.compute.amazonaws.com/fineract-provider/api/v1/'
+  },
+
+  proxy: {
+    // '/api/v1/': {
+    //   target: 'https://localhost:8443/fineract-provider',
+    //   pathRewrite: {
+    //     '^/api/v1/': ''
+    //   },
+    //   changeOrigin: true
+    // }
+  },
   /*
    ** Build configuration
    */
