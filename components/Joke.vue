@@ -4,7 +4,7 @@
       <p>{{ joke }}</p>
     </div>
   </nuxt-link>
-</template>
+</template> 
 
 <script>
 export default {

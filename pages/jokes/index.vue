@@ -1,19 +1,4 @@
 <template>
-  <!-- <div>
-    <b-table
-      :data="data"
-      :striped="true"
-      :hoverable="true"
-      :columns="columns"
-    ></b-table>
-    <SearchJokes v-on:search-text="searchText" />
-    <Joke
-      v-for="joke in jokes"
-      :key="joke.id"
-      :id="joke.id"
-      :joke="joke.joke"
-    />
-  </div>-->
   <section>
     <div class="container">
       <div class="notification">
@@ -58,137 +43,6 @@ import SearchJokes from '../../components/SearchJokes'
 import https from 'https'
 
 let data = []
-
-// let data = [
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 1,
-//     external_id: 1,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 2,
-//     external_id: 2,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 3,
-//     external_id: 3,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 4,
-//     external_id: 4,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 5,
-//     external_id: 5,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 6,
-//     external_id: 6,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 7,
-//     external_id: 7,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 8,
-//     external_id: 8,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 9,
-//     external_id: 9,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 10,
-//     external_id: 10,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 11,
-//     external_id: 11,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 12,
-//     external_id: 12,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 13,
-//     external_id: 13,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 14,
-//     external_id: 14,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 15,
-//     external_id: 15,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   },
-//   {
-//     name: 'Jesse Simmons',
-//     client_number: 16,
-//     external_id: 16,
-//     status: 'active',
-//     office: 'davao',
-//     staff: 'jesse'
-//   }
-// ]
 
 export default {
   components: {
@@ -298,7 +152,7 @@ export default {
               var obj = json.pageItems[i]
 
               var item = {}
-              item['name'] = bj.firstname + ' ' + obj.lastname
+              item['name'] = obj.firstname + ' ' + obj.lastname
               item['client_number'] = obj.accountNo
               item['external_id'] = obj.lastname
               item['status'] = obj.status.value
