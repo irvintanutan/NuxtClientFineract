@@ -148,13 +148,14 @@ export default {
         })
           .then(resp => {
             var json = resp.data
+            this.data = []
             for (var i = 0; i < json.pageItems.length; i++) {
               var obj = json.pageItems[i]
 
               var item = {}
               item['name'] = obj.firstname + ' ' + obj.lastname
               item['client_number'] = obj.accountNo
-              item['external_id'] = obj.lastname
+              item['external_id'] = obj.externalId
               item['status'] = obj.status.value
               item['office'] = obj.officeName
               item['staff'] = obj.staffName
