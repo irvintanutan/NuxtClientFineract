@@ -3,9 +3,101 @@
     <div class="container">
       <div class="notification">
         <nuxt-link to="/members" class="button is-primary">Back To Member List</nuxt-link>
-        <h2>{{ joke }}</h2>
+        <!-- <h2>{{ joke }}</h2> -->
         <hr />
-        <small>Joke ID: {{ $route.params.id }}</small>
+        <b-field label="Office">
+          <b-select placeholder="Select office">
+            <!-- <option
+              v-for="option in data"
+              :value="option.id"
+              :key="option.id"
+            >{{ option.user.first_name }}</option>-->
+            <option value></option>
+          </b-select>
+        </b-field>
+        <b-field label="Legal form">
+          <b-select placeholder="Select legal form">
+            <option value="person">Person</option>
+            <option value="entity">Entity</option>
+          </b-select>
+        </b-field>
+        <b-field label="First name">
+          <b-input value="Kevin Garvey"></b-input>
+        </b-field>
+        <b-field label="Middle name">
+          <b-input value="Kevin Garvey"></b-input>
+        </b-field>
+        <b-field label="Last name">
+          <b-input value="Kevin Garvey"></b-input>
+        </b-field>
+        <b-field label="Account#">
+          <b-input value="Kevin Garvey"></b-input>
+        </b-field>
+        <b-field label="External id">
+          <b-input value="Kevin Garvey"></b-input>
+        </b-field>
+        <b-field label="Mobile number">
+          <b-input value="Kevin Garvey"></b-input>
+        </b-field>
+        <b-field label="Date of birth">
+          <b-datepicker
+            :show-week-number="showWeekNumber"
+            placeholder="Click to select..."
+            icon="calendar-today"
+            trap-focus
+          ></b-datepicker>
+        </b-field>
+        <b-field label="Client type">
+          <b-select placeholder="Select client type">
+            <option value="em">EM</option>
+            <option value="ma">MA</option>
+            <option value="co">CO</option>
+          </b-select>
+        </b-field>
+        <b-field label="Submitted on">
+          <b-datepicker
+            :show-week-number="showWeekNumber"
+            placeholder="Click to select..."
+            icon="calendar-today"
+            trap-focus
+          ></b-datepicker>
+        </b-field>
+        <b-field label="Staff">
+          <b-select placeholder="Select staff">
+            <!-- <option
+              v-for="option in data"
+              :value="option.id"
+              :key="option.id"
+            >{{ option.user.first_name }}</option>-->
+            <option value></option>
+          </b-select>
+        </b-field>
+        <b-field label="Is staff?">
+          <div class="field">
+            <b-checkbox></b-checkbox>
+          </div>
+        </b-field>
+        <b-field label="Gender">
+          <b-select placeholder="Select gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </b-select>
+        </b-field>
+        <b-field label="Client classification">
+          <b-select placeholder="Select client classification">
+            <!-- <option
+              v-for="option in data"
+              :value="option.id"
+              :key="option.id"
+            >{{ option.user.first_name }}</option>-->
+            <option value></option>
+          </b-select>
+        </b-field>
+
+        <nuxt-link to="/members" class="button is-default">Cancel</nuxt-link>
+        <nuxt-link to="/members" class="button is-primary">Submit</nuxt-link>
+        <!-- <small>Joke ID: {{ $route.params.id }}</small> -->
       </div>
     </div>
   </section>
