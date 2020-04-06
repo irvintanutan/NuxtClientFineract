@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <h2>Fineract NUXT Member Module</h2>
+  <div class="container">
+    <div class="notification">
+      <h2>Fineract NUXT Member Module</h2>
+    </div>
   </div>
 </template>
 
