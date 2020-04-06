@@ -29,8 +29,7 @@
           aria-previous-label="Previous page"
           aria-page-label="Page"
           aria-current-label="Current page"
-          :selected.sync="selected"
-          @click="open(selected)"
+          @select="(row, index) => open(row)"
         ></b-table>
       </div>
     </div>
@@ -52,9 +51,10 @@ export default {
 
   data() {
     return {
+      title: 'Members Page',
+      subtitle: 'List of Members',
       jokes: [],
       data,
-      selected: data[1],
       columns: [
         {
           field: 'name',
@@ -159,6 +159,7 @@ export default {
               item['status'] = obj.status.value
               item['office'] = obj.officeName
               item['staff'] = obj.staffName
+              item['id'] = obj.id
 
               this.data.push(item)
               console.log(item)
@@ -192,18 +193,18 @@ export default {
         console.log(err)
       }
     },
-    open(item) {
-      this.$router.push({ path: `/jokes/${item.external_id}` })
+    async open(row) {
+      this.$router.push({ path: `/members/${row.id}` })
     }
   },
   head() {
     return {
-      title: 'Member List',
+      title: 'Members Page',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'best place for corny dad jokes'
+          content: 'List of Members'
         }
       ]
     }

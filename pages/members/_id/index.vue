@@ -1,10 +1,14 @@
 <template>
-  <div>
-    <nuxt-link to="/member">Back To Member</nuxt-link>
-    <h2>{{ joke }}</h2>
-    <hr />
-    <small>Joke ID: {{ $route.params.id }}</small>
-  </div>
+  <section>
+    <div class="container">
+      <div class="notification">
+        <nuxt-link to="/members" class="button is-primary">Back To Member List</nuxt-link>
+        <h2>{{ joke }}</h2>
+        <hr />
+        <small>Joke ID: {{ $route.params.id }}</small>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -44,7 +48,7 @@ export default {
   },
   head() {
     return {
-      title: this.joke,
+      title: 'Member Page',
       meta: [
         {
           hid: 'description',

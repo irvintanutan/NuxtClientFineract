@@ -1,19 +1,4 @@
 <template>
-  <!-- <header class="header">
-    <h1 class="title">Member Page</h1>
-    <ul>
-      <li>
-        <b-button tag="nuxt-link" to="/" type="is-primary">Home</b-button>
-      </li>
-      <li>
-        <b-button tag="nuxt-link" to="/jokes" type="is-primary">Member</b-button>
-      </li>
-      <li>
-        <b-button tag="nuxt-link" to="/about" type="is-primary">About</b-button>
-      </li>
-    </ul>
-  </header>-->
-
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
@@ -34,7 +19,7 @@
         <div class="navbar-start">
           <nuxt-link to="/" class="navbar-item">Home</nuxt-link>
 
-          <nuxt-link to="/member" class="navbar-item">Members</nuxt-link>
+          <nuxt-link to="/members" class="navbar-item">Members</nuxt-link>
 
           <nuxt-link to="/about" class="navbar-item">About</nuxt-link>
         </div>
