@@ -110,41 +110,20 @@ export default {
         Accept: 'application/json'
       }
     }
-
     try {
-      // const rest = await this.$axios.get('https://icanhazdadjoke.com/search', config)
-      // this.jokes = rest.data.results
       this.$store
-        .dispatch("getMembers")
+        .dispatch('getMembers')
         .then(() => {
           this.data = this.$store.getters.members
         })
         .catch(err => {
           console.log(err)
         })
-      // console.log(fineract)
     } catch (err) {
       console.log(err)
     }
   },
   methods: {
-    async searchText(text) {
-      const config = {
-        headers: {
-          Accept: 'application/json'
-        }
-      }
-
-      try {
-        const rest = await this.$axios.get(
-          `https://icanhazdadjoke.com/search?term=${text}`,
-          config
-        )
-        this.jokes = rest.data.results
-      } catch (err) {
-        console.log(err)
-      }
-    },
     async open(row) {
       this.$router.push({ path: `/members/${row.id}` })
     }

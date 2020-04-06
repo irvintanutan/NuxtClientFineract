@@ -22,22 +22,22 @@
           </b-select>
         </b-field>
         <b-field label="First name">
-          <b-input value="Kevin Garvey"></b-input>
+          <b-input v-model="member.firstname"></b-input>
         </b-field>
         <b-field label="Middle name">
-          <b-input value="Kevin Garvey"></b-input>
+          <b-input value></b-input>
         </b-field>
         <b-field label="Last name">
-          <b-input value="Kevin Garvey"></b-input>
+          <b-input v-model="member.lastname"></b-input>
         </b-field>
         <b-field label="Account#">
-          <b-input value="Kevin Garvey"></b-input>
+          <b-input v-model="member.AccountNo"></b-input>
         </b-field>
         <b-field label="External id">
-          <b-input value="Kevin Garvey"></b-input>
+          <b-input v-model="member.externalId"></b-input>
         </b-field>
         <b-field label="Mobile number">
-          <b-input value="Kevin Garvey"></b-input>
+          <b-input v-model="member.mobileNo"></b-input>
         </b-field>
         <b-field label="Date of birth">
           <b-datepicker
@@ -109,31 +109,22 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      joke: {}
+      joke: {},
+      member: {}
     }
   },
-  async created() {
-    const config = {
-      headers: {
-        Accept: 'application/json'
-      }
-    }
-
-    const config2 = {
-      headers: {
-        'Fineract-Platform-TenantId': 'default',
-        'Access-Control-Allow-Origin': 'true'
-      }
-    }
-
+  created() {},
+  mounted() {
     try {
-      const rest = await axios.get(
-        `https://icanhazdadjoke.com/j/${this.$route.params.id}`,
-        config
-      )
-
-      this.joke = rest.data.joke
-      console.log(this.joke)
+      this.$store
+        .dispatch('getSpecificMembers', this.$route.params.id)
+        .then(() => {
+          this.member = this.$store.getters.memberDetails
+          console.log(this.member)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     } catch (err) {
       console.log(err)
     }

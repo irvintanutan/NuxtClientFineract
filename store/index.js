@@ -4,42 +4,46 @@ import https from 'https'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      status: "",
-      token: "",
+      status: '',
+      token: '',
       members: [],
-      dataStatus: ""
+      memberDetails: {},
+      dataStatus: ''
     },
     mutations: {
       auth_request(state) {
-        state.status = "loading"
+        state.status = 'loading'
       },
       auth_success(state, token) {
-        state.status = "success"
+        state.status = 'success'
         state.token = token
       },
       auth_error(state) {
-        state.status = "error"
+        state.status = 'error'
       },
       data_error(state, name) {
-        state.dataStatus = `Error fetching ${name} data`;
+        state.dataStatus = `Error fetching ${name} data`
       },
       data_request(state, name) {
-        state.dataStatus = `Fetching ${name} data`;
+        state.dataStatus = `Fetching ${name} data`
       },
       data_success(state, name) {
-        state.dataStatus = `Success fetching ${name} data`;
+        state.dataStatus = `Success fetching ${name} data`
       },
       members(state, members) {
         state.members = members
+      },
+      memberDetails(state, memberDetails) {
+        state.memberDetails = memberDetails
       }
     },
     actions: {
       login({ commit }, user) {
         return new Promise((resolve, reject) => {
           const agent = new https.Agent({
-              rejectUnauthorized: false
+            rejectUnauthorized: false
           })
-          commit("auth_request");
+          commit('auth_request')
           this.$axios.defaults.headers.common = {
             'Fineract-Platform-TenantId': 'default',
             'Access-Control-Allow-Origin': '*'
@@ -55,25 +59,54 @@ const createStore = () => {
           })
             .then(resp => {
               const token = resp.data.base64EncodedAuthenticationKey
-              if(process.client) {
-                localStorage.setItem("token", token)
-                console.log(`localStorage ${localStorage.getItem("token")}`)
+              if (process.client) {
+                localStorage.setItem('token', token)
+                console.log(`localStorage ${localStorage.getItem('token')}`)
               }
-              commit("auth_success", token)
+              commit('auth_success', token)
               resolve(resp)
             })
             .catch(err => {
               reject(err)
             })
-        });
+        })
       },
-  
-      getMembers({commit}) {
+      getSpecificMembers({ commit }, id) {
         return new Promise((resolve, reject) => {
           const agent = new https.Agent({
             rejectUnauthorized: false
           })
-          const token = process.client ? localStorage.getItem("token") : ""
+          const token = process.client ? localStorage.getItem('token') : ''
+          this.$axios.defaults.headers.common = {
+            'Fineract-Platform-TenantId': 'default',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${token}`
+          }
+          this.$axios({
+            url: `clients/${id}`,
+            method: 'GET',
+            data: {},
+            config: {
+              httpsAgent: agent
+            },
+            crossDomain: true
+          })
+            .then(resp => {
+              commit('memberDetails', resp.data)
+              resolve(resp)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+      },
+      getMembers({ commit }) {
+        return new Promise((resolve, reject) => {
+          const agent = new https.Agent({
+            rejectUnauthorized: false
+          })
+          const token = process.client ? localStorage.getItem('token') : ''
           console.log(`getMembers token ${token}`)
           console.log(`members ${token}`)
           this.$axios.defaults.headers.common = {
@@ -103,18 +136,19 @@ const createStore = () => {
               var membersData = new Array()
               for (var i = 0; i < json.pageItems.length; i++) {
                 var obj = json.pageItems[i]
-  
+
                 var item = {}
                 item['name'] = obj.firstname + ' ' + obj.lastname
                 item['client_number'] = obj.accountNo
-                item['external_id'] = obj.lastname
+                item['external_id'] = obj.externalId
                 item['status'] = obj.status.value
                 item['office'] = obj.officeName
                 item['staff'] = obj.staffName
-  
+                item['id'] = obj.id
+
                 membersData.push(item)
               }
-              commit("members", membersData)
+              commit('members', membersData)
               resolve(resp)
             })
             .catch(err => {
@@ -128,9 +162,10 @@ const createStore = () => {
       isLoggedIn: state => !!state.token,
       authStatus: state => state.status,
       token: state => state.token,
-      members: state => state.members
+      members: state => state.members,
+      memberDetails: state => state.memberDetails
     }
-  });
+  })
 }
 
 export default createStore
