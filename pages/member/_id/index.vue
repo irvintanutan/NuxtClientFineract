@@ -1,9 +1,9 @@
 <template>
   <div>
-    <nuxt-link to="/jokes"> Back To Member </nuxt-link>
+    <nuxt-link to="/member">Back To Member</nuxt-link>
     <h2>{{ joke }}</h2>
     <hr />
-    <small> Joke ID: {{ $route.params.id }} </small>
+    <small>Joke ID: {{ $route.params.id }}</small>
   </div>
 </template>
 

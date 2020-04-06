@@ -34,7 +34,7 @@
         <div class="navbar-start">
           <nuxt-link to="/" class="navbar-item">Home</nuxt-link>
 
-          <nuxt-link to="/jokes" class="navbar-item">Members</nuxt-link>
+          <nuxt-link to="/member" class="navbar-item">Members</nuxt-link>
 
           <nuxt-link to="/about" class="navbar-item">About</nuxt-link>
         </div>

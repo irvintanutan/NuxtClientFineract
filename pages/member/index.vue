@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import Joke from '../../components/Joke'
+import Member from '../../components/Member'
 import SearchJokes from '../../components/SearchJokes'
 import https from 'https'
 
@@ -46,7 +46,7 @@ let data = []
 
 export default {
   components: {
-    Joke,
+    Member,
     SearchJokes
   },
 
