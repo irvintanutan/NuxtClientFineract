@@ -129,7 +129,7 @@ export default {
         .dispatch('getSpecificMembers', this.$route.params.id)
         .then(() => {
           this.member = this.$store.getters.memberDetails
-          console.log(this.member)
+          console.log(`member dispatch ${this.member}`)
         })
         .catch(err => {
           console.log(err)
@@ -141,11 +141,19 @@ export default {
   mounted() {},
   methods: {
     update() {
+      console.log(`update member payload ${JSON.stringify(this.member)}`)
+      const payload = {
+        firstname: this.member.firstname,
+        lastname: this.member.lastname,
+        accountNo: this.member.accountNo,
+        externalId: this.member.externalId,
+        mobileNo: this.member.mobileNo
+      }
       this.$store
-        .dispatch('updateMember', this.$route.params.id, this.member)
+        .dispatch('updateMember', { clientId: this.$route.params.id, payload: payload })
         .then(() => {
           alert('Successful')
-          router.push('member')
+          this.$router.push('/members')
         })
         .catch(err => {
           alert('Not Successful')
