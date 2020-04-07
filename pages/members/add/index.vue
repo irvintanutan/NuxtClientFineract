@@ -73,7 +73,7 @@
         </b-field>
 
         <nuxt-link to="/members" class="button is-default">Cancel</nuxt-link>
-        <button class="button is-primary" v-on:click="update">Update</button>
+        <button class="button is-primary" v-on:click="update">Add</button>
         <!-- <small>Joke ID: {{ $route.params.id }}</small> -->
       </div>
     </div>
@@ -89,7 +89,6 @@ export default {
       joke: {},
       member: {},
       staffs: {},
-      template: {},
       payload: {},
       submissionDate: '',
       activationDate: ''
@@ -102,46 +101,6 @@ export default {
         .then(() => {
           this.staffs = this.$store.getters.staffs
           console.log(this.staffs)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-
-      this.$store
-        .dispatch('getClientTemplates')
-        .then(() => {
-          this.template = this.$store.getters.clientTemplates
-          console.log(this.template)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      this.$store
-        .dispatch('getSpecificMembers', this.$route.params.id)
-        .then(() => {
-          let memberDetails = this.$store.getters.memberDetails
-          this.member = memberDetails
-          console.log(this.member)
-
-          let date =
-            memberDetails.timeline.submittedOnDate[0] +
-            '-' +
-            ('0' + memberDetails.timeline.submittedOnDate[1]).slice(-2) +
-            '-' +
-            ('0' + memberDetails.timeline.submittedOnDate[2]).slice(-2)
-
-          this.submissionDate = date
-          console.log(date)
-
-          date =
-            memberDetails.timeline.activatedOnDate[0] +
-            '-' +
-            ('0' + memberDetails.timeline.activatedOnDate[1]).slice(-2) +
-            '-' +
-            ('0' + memberDetails.timeline.activatedOnDate[2]).slice(-2)
-
-          this.activationDate = date
-          console.log(date)
         })
         .catch(err => {
           console.log(err)

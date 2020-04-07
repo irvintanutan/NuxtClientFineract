@@ -9,6 +9,7 @@
             <option value="15">15 per page</option>
             <option value="20">20 per page</option>
           </b-select>
+          <nuxt-link to="/members/add" class="button is-primary">Add a Member</nuxt-link>
         </b-field>
 
         <b-table
