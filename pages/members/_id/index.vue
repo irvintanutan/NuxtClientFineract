@@ -49,7 +49,10 @@
           </b-select>
         </b-field>
         <b-field label="Submitted on">
-          <b-datepicker placeholder="Click to select..." icon="calendar-today" trap-focus></b-datepicker>
+          <b-input v-model="submissionDate" type="date"></b-input>
+        </b-field>
+        <b-field label="Activated on">
+          <b-input v-model="activationDate" type="date"></b-input>
         </b-field>
         <b-field label="Staff">
           <b-select placeholder="Select staff" v-model="member.staffId">
@@ -91,7 +94,9 @@ export default {
       staffs: {},
       template: {},
       offices: {},
-      payload: {}
+      payload: {},
+      submissionDate: '',
+      activationDate: ''
     }
   },
   async created() {
@@ -128,8 +133,29 @@ export default {
       this.$store
         .dispatch('getSpecificMembers', this.$route.params.id)
         .then(() => {
-          this.member = this.$store.getters.memberDetails
-          console.log(`member dispatch ${this.member}`)
+          let memberDetails = this.$store.getters.memberDetails
+          this.member = memberDetails
+          console.log(this.member)
+
+          let date =
+            memberDetails.timeline.submittedOnDate[0] +
+            '-' +
+            ('0' + memberDetails.timeline.submittedOnDate[1]).slice(-2) +
+            '-' +
+            ('0' + memberDetails.timeline.submittedOnDate[2]).slice(-2)
+
+          this.submissionDate = date
+          console.log(date)
+
+          date =
+            memberDetails.timeline.activatedOnDate[0] +
+            '-' +
+            ('0' + memberDetails.timeline.activatedOnDate[1]).slice(-2) +
+            '-' +
+            ('0' + memberDetails.timeline.activatedOnDate[2]).slice(-2)
+
+          this.activationDate = date
+          console.log(date)
         })
         .catch(err => {
           console.log(err)
@@ -150,7 +176,10 @@ export default {
         mobileNo: this.member.mobileNo
       }
       this.$store
-        .dispatch('updateMember', { clientId: this.$route.params.id, payload: payload })
+        .dispatch('updateMember', {
+          clientId: this.$route.params.id,
+          payload: payload
+        })
         .then(() => {
           alert('Successful')
           this.$router.push('/members')
