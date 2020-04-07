@@ -5,13 +5,13 @@
         <nuxt-link to="/members" class="button is-primary">Back To Member List</nuxt-link>
         <!-- <h2>{{ joke }}</h2> -->
         <hr />
-        <b-field label="Office">
-          <b-select placeholder="Select office" v-model="member.officeId">
+        <!-- <b-field label="Office">
+          <b-select placeholder="Select office">
             <option v-for="option in offices" :value="option.id" :key="option.id">{{ option.name }}</option>
             <option value></option>
           </b-select>
-        </b-field>
-        <b-field label="Legal form">
+        </b-field>-->
+        <!-- <b-field label="Legal form">
           <b-select placeholder="Select legal form" v-model="member.legalForm">
             <option
               v-for="option in template.clientLegalFormOptions"
@@ -19,7 +19,7 @@
               :key="option.id"
             >{{ option.value }}</option>
           </b-select>
-        </b-field>
+        </b-field>-->
         <b-field label="First name">
           <b-input v-model="member.firstname"></b-input>
         </b-field>
@@ -73,7 +73,7 @@
         </b-field>
 
         <nuxt-link to="/members" class="button is-default">Cancel</nuxt-link>
-        <nuxt-link to="/members" class="button is-primary">Submit</nuxt-link>
+        <button class="button is-primary" v-on:click="update">Update</button>
         <!-- <small>Joke ID: {{ $route.params.id }}</small> -->
       </div>
     </div>
@@ -90,7 +90,8 @@ export default {
       member: {},
       staffs: {},
       template: {},
-      offices: {}
+      offices: {},
+      payload: {}
     }
   },
   async created() {
@@ -138,6 +139,20 @@ export default {
     }
   },
   mounted() {},
+  methods: {
+    update() {
+      this.$store
+        .dispatch('updateMember', this.$route.params.id, this.member)
+        .then(() => {
+          alert('Successful')
+          router.push('member')
+        })
+        .catch(err => {
+          alert('Not Successful')
+          console.log(err)
+        })
+    }
+  },
   head() {
     return {
       title: 'Member Page',
