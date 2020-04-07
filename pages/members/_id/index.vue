@@ -6,19 +6,18 @@
         <!-- <h2>{{ joke }}</h2> -->
         <hr />
         <b-field label="Office">
-          <b-select placeholder="Select office">
-            <!-- <option
-              v-for="option in data"
-              :value="option.id"
-              :key="option.id"
-            >{{ option.user.first_name }}</option>-->
+          <b-select placeholder="Select office" v-model="member.officeId">
+            <option v-for="option in offices" :value="option.id" :key="option.id">{{ option.name }}</option>
             <option value></option>
           </b-select>
         </b-field>
         <b-field label="Legal form">
-          <b-select placeholder="Select legal form">
-            <option value="person">Person</option>
-            <option value="entity">Entity</option>
+          <b-select placeholder="Select legal form" v-model="member.legalForm">
+            <option
+              v-for="option in template.clientLegalFormOptions"
+              :value="option.id"
+              :key="option.id"
+            >{{ option.value }}</option>
           </b-select>
         </b-field>
         <b-field label="First name">
@@ -40,12 +39,7 @@
           <b-input v-model="member.mobileNo"></b-input>
         </b-field>
         <b-field label="Date of birth">
-          <b-datepicker
-            :show-week-number="showWeekNumber"
-            placeholder="Click to select..."
-            icon="calendar-today"
-            trap-focus
-          ></b-datepicker>
+          <b-datepicker placeholder="Click to select..." icon="calendar-today" trap-focus></b-datepicker>
         </b-field>
         <b-field label="Client type">
           <b-select placeholder="Select client type">
@@ -55,33 +49,16 @@
           </b-select>
         </b-field>
         <b-field label="Submitted on">
-          <b-datepicker
-            :show-week-number="showWeekNumber"
-            placeholder="Click to select..."
-            icon="calendar-today"
-            trap-focus
-          ></b-datepicker>
+          <b-datepicker placeholder="Click to select..." icon="calendar-today" trap-focus></b-datepicker>
         </b-field>
         <b-field label="Staff">
-          <b-select placeholder="Select staff">
-            <!-- <option
-              v-for="option in data"
+          <b-select placeholder="Select staff" v-model="member.staffId">
+            <option
+              v-for="option in staffs"
               :value="option.id"
               :key="option.id"
-            >{{ option.user.first_name }}</option>-->
+            >{{ option.displayName }}</option>
             <option value></option>
-          </b-select>
-        </b-field>
-        <b-field label="Is staff?">
-          <div class="field">
-            <b-checkbox></b-checkbox>
-          </div>
-        </b-field>
-        <b-field label="Gender">
-          <b-select placeholder="Select gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
           </b-select>
         </b-field>
         <b-field label="Client classification">
@@ -110,12 +87,43 @@ export default {
   data() {
     return {
       joke: {},
-      member: {}
+      member: {},
+      staffs: {},
+      template: {},
+      offices: {}
     }
   },
-  created() {},
-  mounted() {
+  async created() {
     try {
+      this.$store
+        .dispatch('getAllStaff')
+        .then(() => {
+          this.staffs = this.$store.getters.staffs
+          console.log(this.staffs)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+      this.$store
+        .dispatch('getClientTemplates')
+        .then(() => {
+          this.template = this.$store.getters.clientTemplates
+          console.log(this.template)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+      this.$store
+        .dispatch('getOffices')
+        .then(() => {
+          this.offices = this.$store.getters.offices
+          console.log(this.offices)
+        })
+        .catch(err => {
+          console.log(err)
+        })
       this.$store
         .dispatch('getSpecificMembers', this.$route.params.id)
         .then(() => {
@@ -129,6 +137,7 @@ export default {
       console.log(err)
     }
   },
+  mounted() {},
   head() {
     return {
       title: 'Member Page',

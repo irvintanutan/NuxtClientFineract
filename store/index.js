@@ -8,6 +8,9 @@ const createStore = () => {
       token: '',
       members: [],
       memberDetails: {},
+      staffs: {},
+      clientTemplates: {},
+      offices: {},
       dataStatus: ''
     },
     mutations: {
@@ -35,10 +38,19 @@ const createStore = () => {
       },
       memberDetails(state, memberDetails) {
         state.memberDetails = memberDetails
+      },
+      staffs(state, staffs) {
+        state.staffs = staffs
+      },
+      clientTemplates(state, clientTemplates) {
+        state.clientTemplates = clientTemplates
+      },
+      offices(state, offices) {
+        state.offices = offices
       }
     },
     actions: {
-      login({ commit }, user) {
+      async login({ commit }, user) {
         return new Promise((resolve, reject) => {
           const agent = new https.Agent({
             rejectUnauthorized: false
@@ -71,7 +83,7 @@ const createStore = () => {
             })
         })
       },
-      getSpecificMembers({ commit }, id) {
+      async getSpecificMembers({ commit }, id) {
         return new Promise((resolve, reject) => {
           const agent = new https.Agent({
             rejectUnauthorized: false
@@ -101,7 +113,97 @@ const createStore = () => {
             })
         })
       },
-      getMembers({ commit }) {
+      async getOffices({ commit }) {
+        return new Promise((resolve, reject) => {
+          const agent = new https.Agent({
+            rejectUnauthorized: false
+          })
+          const token = process.client ? localStorage.getItem('token') : ''
+          this.$axios.defaults.headers.common = {
+            'Fineract-Platform-TenantId': 'default',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${token}`
+          }
+          this.$axios({
+            url: `offices`,
+            method: 'GET',
+            data: {},
+            config: {
+              httpsAgent: agent
+            },
+            crossDomain: true
+          })
+            .then(resp => {
+              commit('offices', resp.data)
+              resolve(resp)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+      },
+      async getClientTemplates({ commit }) {
+        return new Promise((resolve, reject) => {
+          const agent = new https.Agent({
+            rejectUnauthorized: false
+          })
+          const token = process.client ? localStorage.getItem('token') : ''
+          this.$axios.defaults.headers.common = {
+            'Fineract-Platform-TenantId': 'default',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${token}`
+          }
+          this.$axios({
+            url: 'clients/template',
+            method: 'GET',
+            data: {},
+            config: {
+              httpsAgent: agent
+            },
+            crossDomain: true
+          })
+            .then(resp => {
+              commit('clientTemplates', resp.data)
+              resolve(resp)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+      },
+      async getAllStaff({ commit }) {
+        return new Promise((resolve, reject) => {
+          const agent = new https.Agent({
+            rejectUnauthorized: false
+          })
+          const token = process.client ? localStorage.getItem('token') : ''
+          this.$axios.defaults.headers.common = {
+            'Fineract-Platform-TenantId': 'default',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${token}`
+          }
+          this.$axios({
+            url: `staff`,
+            method: 'GET',
+            data: {},
+            config: {
+              httpsAgent: agent
+            },
+            crossDomain: true
+          })
+            .then(resp => {
+              commit('staffs', resp.data)
+              resolve(resp)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+      },
+      async getMembers({ commit }) {
         return new Promise((resolve, reject) => {
           const agent = new https.Agent({
             rejectUnauthorized: false
@@ -163,7 +265,10 @@ const createStore = () => {
       authStatus: state => state.status,
       token: state => state.token,
       members: state => state.members,
-      memberDetails: state => state.memberDetails
+      memberDetails: state => state.memberDetails,
+      staffs: state => state.staffs,
+      clientTemplates: state => state.clientTemplates,
+      offices: state => state.offices
     }
   })
 }
