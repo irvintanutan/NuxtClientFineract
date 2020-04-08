@@ -6,7 +6,7 @@
         <!-- <h2>{{ joke }}</h2> -->
         <hr />
         <!-- <b-field label="Office">
-          <b-select placeholder="Select office">
+          <b-select placeholder="Select office" v-model="member.officeId">
             <option v-for="option in offices" :value="option.id" :key="option.id">{{ option.name }}</option>
             <option value></option>
           </b-select>
@@ -23,14 +23,14 @@
         <b-field label="First name">
           <b-input v-model="member.firstname"></b-input>
         </b-field>
-        <b-field label="Middle name">
+        <!-- <b-field label="Middle name">
           <b-input value></b-input>
-        </b-field>
+        </b-field>-->
         <b-field label="Last name">
           <b-input v-model="member.lastname"></b-input>
         </b-field>
         <b-field label="Account#">
-          <b-input v-model="member.AccountNo"></b-input>
+          <b-input v-model="member.accountNo"></b-input>
         </b-field>
         <b-field label="External id">
           <b-input v-model="member.externalId"></b-input>
@@ -38,13 +38,16 @@
         <b-field label="Mobile number">
           <b-input v-model="member.mobileNo"></b-input>
         </b-field>
-        <b-field label="Client type">
+        <b-field label="Date of birth">
+          <b-datepicker placeholder="Click to select..." icon="calendar-today" trap-focus></b-datepicker>
+        </b-field>
+        <!-- <b-field label="Client type"> 
           <b-select placeholder="Select client type">
             <option value="em">EM</option>
             <option value="ma">MA</option>
             <option value="co">CO</option>
           </b-select>
-        </b-field>
+        </b-field>-->
         <b-field label="Submitted on">
           <b-input v-model="submissionDate" type="date"></b-input>
         </b-field>
@@ -61,16 +64,16 @@
             <option value></option>
           </b-select>
         </b-field>
-        <b-field label="Client classification">
+        <!-- <b-field label="Client classification">
           <b-select placeholder="Select client classification">
-            <!-- <option
+            <option
               v-for="option in data"
               :value="option.id"
               :key="option.id"
-            >{{ option.user.first_name }}</option>-->
+            >{{ option.user.first_name }}</option>
             <option value></option>
           </b-select>
-        </b-field>
+        </b-field>-->
 
         <nuxt-link to="/members" class="button is-default">Cancel</nuxt-link>
         <button class="button is-primary" v-on:click="update">Update</button>
@@ -91,31 +94,32 @@ export default {
       staffs: {},
       template: {},
       payload: {},
+      offices: {},
       submissionDate: '',
       activationDate: ''
     }
   },
-  async created() {
+  created() {
     try {
       this.$store
         .dispatch('getAllStaff')
         .then(() => {
           this.staffs = this.$store.getters.staffs
-          console.log(this.staffs)
+          //console.log(this.staffs)
         })
         .catch(err => {
           console.log(err)
         })
+      // this.$store
+      //   .dispatch('getClientTemplates')
+      //   .then(() => {
+      //     this.template = this.$store.getters.clientTemplates
+      //     //console.log(this.template)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
 
-      this.$store
-        .dispatch('getClientTemplates')
-        .then(() => {
-          this.template = this.$store.getters.clientTemplates
-          console.log(this.template)
-        })
-        .catch(err => {
-          console.log(err)
-        })
       this.$store
         .dispatch('getSpecificMembers', this.$route.params.id)
         .then(() => {

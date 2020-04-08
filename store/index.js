@@ -113,7 +113,7 @@ const createStore = () => {
             })
         })
       },
-      updateMember({ commit }, {clientId, payload}) {
+      updateMember({ commit }, { clientId, payload }) {
         return new Promise((resolve, reject) => {
           const agent = new https.Agent({
             rejectUnauthorized: false
@@ -129,6 +129,36 @@ const createStore = () => {
           this.$axios({
             url: `clients/${clientId}`,
             method: 'PUT',
+            data: payload,
+            config: {
+              httpsAgent: agent
+            },
+            crossDomain: true
+          })
+            .then(resp => {
+              resolve(resp)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+      },
+      addMember({ commit }, { payload }) {
+        return new Promise((resolve, reject) => {
+          const agent = new https.Agent({
+            rejectUnauthorized: false
+          })
+          const token = process.client ? localStorage.getItem('token') : ''
+          this.$axios.defaults.headers.common = {
+            'Fineract-Platform-TenantId': 'default',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${token}`
+          }
+          console.log(`payload ${JSON.stringify(payload)}`)
+          this.$axios({
+            url: `clients`,
+            method: 'POST',
             data: payload,
             config: {
               httpsAgent: agent
@@ -203,7 +233,7 @@ const createStore = () => {
             })
         })
       },
-      getAllStaff({ commit }) {
+      async getAllStaff({ commit }) {
         return new Promise((resolve, reject) => {
           const agent = new https.Agent({
             rejectUnauthorized: false
