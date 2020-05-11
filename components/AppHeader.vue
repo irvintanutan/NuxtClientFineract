@@ -1,11 +1,11 @@
 <template>
-  <section class="hero is-primary">
-    <div class="hero-body">
+  <section class="hero is-primary header">
+    <!-- <div class="hero-body">
       <div class="container">
         <h1 class="title">Members</h1>
         <h2 class="subtitle">List of Members</h2>
       </div>
-    </div>
+    </div>-->
   </section>
 </template>
 
@@ -15,4 +15,7 @@ export default {
 }
 </script>
 <style>
+.header {
+  padding-top: 100px;
+}
 </style>

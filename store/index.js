@@ -307,6 +307,7 @@ const createStore = () => {
                 item['office'] = obj.officeName
                 item['staff'] = obj.staffName
                 item['id'] = obj.id
+                item['action'] = '⫶'
 
                 membersData.push(item)
               }

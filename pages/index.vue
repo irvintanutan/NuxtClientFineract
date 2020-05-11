@@ -4,9 +4,7 @@
       <h2>Fineract NUXT Member Module</h2>
 
       <b-notification :closable="false">
-        <b-loading :is-full-page="isFullPage" :active.sync="isLoading">
-          <b-icon pack="fas" icon="sync-alt" size="is-large" custom-class="fa-spin"></b-icon>
-        </b-loading>
+        <b-loading :is-full-page="isFullPage" :active.sync="isLoading"></b-loading>
       </b-notification>
     </div>
   </div>

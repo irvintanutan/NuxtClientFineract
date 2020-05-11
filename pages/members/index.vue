@@ -2,15 +2,35 @@
   <section>
     <div class="container">
       <div class="notification">
-        <b-field grouped group-multiline>
-          <b-select v-model="perPage" :disabled="!isPaginated">
-            <option value="5">5 per page</option>
-            <option value="10">10 per page</option>
-            <option value="15">15 per page</option>
-            <option value="20">20 per page</option>
-          </b-select>
-          <nuxt-link to="/members/add" class="button is-primary">Add a Member</nuxt-link>
-        </b-field>
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <h1 class="title">Member List</h1>
+            </div>
+          </div>
+          <div class="level-right">
+            <p class="level-item">
+              <nuxt-link to="/members/add" class="button is-primary">Register Member</nuxt-link>
+            </p>
+          </div>
+        </div>
+        <div class="level table-controls">
+          <div class="level-left">
+            <div class="level-item"></div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <b-field grouped group-multiline>
+                <b-select v-model="perPage" :disabled="!isPaginated">
+                  <option value="5">5 per page</option>
+                  <option value="10">10 per page</option>
+                  <option value="15">15 per page</option>
+                  <option value="20">20 per page</option>
+                </b-select>
+              </b-field>
+            </div>
+          </div>
+        </div>
 
         <b-table
           :data="data"
@@ -34,6 +54,26 @@
         ></b-table>
       </div>
     </div>
+
+    <div class="container form-conatiner">
+      <div class="form-details">
+        <b-field class="input-label">
+          <span v-show="mobileNumber.length > 0" class="input-placeholder">Mobile Number</span>
+          <b-input
+            id="mobile"
+            v-model="mobileNumber"
+            name="mobile-number"
+            autocomplete="off"
+            class="label-overlay-input"
+            type="tel"
+            placeholder="Mobile Number"
+            @keypress="input"
+            autofocus
+          />
+        </b-field>
+        <b-field class="input-sublabel" type="is-danger" message="Example: 0XXX XXX XXXX"></b-field>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -52,47 +92,47 @@ export default {
 
   data() {
     return {
+      mobileNumber: '',
       title: 'Members Page',
       subtitle: 'List of Members',
-      jokes: [],
       data,
       columns: [
-        {
-          field: 'name',
-          label: 'Name',
-          searchable: true,
-          sortable: true
-        },
-        {
-          field: 'client_number',
-          label: 'Client #',
-          searchable: true,
-          sortable: true,
-          numeric: true
-        },
-        {
-          field: 'external_id',
-          label: 'External Id',
-          searchable: true,
-          sortable: true,
-          numeric: true
-        },
         {
           field: 'status',
           label: 'Status',
           sortable: true
         },
         {
+          field: 'name',
+          label: 'Member Name',
+          sortable: true
+        },
+        {
+          field: 'client_number',
+          label: 'Member ID',
+          sortable: true
+        },
+        // {
+        //   field: 'external_id',
+        //   label: 'External Id',
+        //   sortable: true,
+        //   numeric: true
+        // },
+        {
           field: 'office',
-          label: 'Office',
-          searchable: true,
+          label: 'Branch',
           sortable: true
         },
         {
           field: 'staff',
-          label: 'Staff',
-          searchable: true,
+          label: 'Assigned Officer',
           sortable: true
+        },
+        {
+          field: 'action',
+          label: '⫶',
+          class: 'bold-td',
+          width: 1
         }
       ],
       isPaginated: true,
@@ -102,7 +142,7 @@ export default {
       sortIcon: 'arrow-up',
       sortIconSize: 'is-small',
       currentPage: 1,
-      perPage: 5
+      perPage: 10
     }
   },
   mounted() {
@@ -143,4 +183,5 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+</style>
